@@ -1,10 +1,10 @@
 import '../styles/globals.css'
+import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import { MantineProvider } from '@mantine/core'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import axios from 'axios'
-import { useEffect } from 'react'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,9 +15,8 @@ const queryClient = new QueryClient({
   },
 })
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   axios.defaults.withCredentials = true
-
   useEffect(() => {
     const getCsrfToken = async () => {
       const { data } = await axios.get(
@@ -27,7 +26,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     }
     getCsrfToken()
   }, [])
-
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider
@@ -44,3 +42,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </QueryClientProvider>
   )
 }
+
+export default MyApp
