@@ -1,18 +1,28 @@
-import { AuthForm } from '@/types'
-import { useForm, yupResolver } from '@mantine/form'
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
+import type { NextPage } from 'next'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import * as Yup from 'yup'
-import { Layout } from '@/components/Layout'
-import { Alert, Anchor, Button, Group, TextInput } from '@mantine/core'
+import { IconDatabase } from '@tabler/icons'
+import { ShieldCheckIcon } from '@heroicons/react/solid'
+import { ExclamationCircleIcon } from '@heroicons/react/outline'
+import {
+  Anchor,
+  TextInput,
+  Button,
+  Group,
+  PasswordInput,
+  Alert,
+} from '@mantine/core'
+import { useForm, yupResolver } from '@mantine/form'
+import { Layout } from '../components/Layout'
+import { AuthForm } from '../types'
 
 const schema = Yup.object().shape({
-  email: Yup.string().email('Invalid email.').required('No email provided.'),
+  email: Yup.string().email('invalid email').required('No email provided'),
   password: Yup.string()
-    .required('No password providers')
-    .min(5, 'Password should be min 5 chars.'),
+    .required('No password provided')
+    .min(5, 'Password should be min 5 chars'),
 })
 
 const Home: NextPage = () => {
@@ -53,7 +63,7 @@ const Home: NextPage = () => {
         <Alert
           my="md"
           variant="filled"
-          icon={<ExclanationCircleIcon />}
+          icon={<ExclamationCircleIcon />}
           title="Authorization Error"
           color="red"
           radius="md"
@@ -65,17 +75,16 @@ const Home: NextPage = () => {
         <TextInput
           mt="md"
           id="email"
-          label="Email"
-          placeholder="example@test.com"
+          label="Email*"
+          placeholder="exmaple@gmail.com"
           {...form.getInputProps('email')}
         />
-      </form>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput
+        <PasswordInput
           mt="md"
           id="password"
+          placeholder="password"
           label="Password*"
-          placeholder="Must be min 5 char."
+          description="Must be min 5 char"
           {...form.getInputProps('password')}
         />
         <Group mt="xl" position="apart">
