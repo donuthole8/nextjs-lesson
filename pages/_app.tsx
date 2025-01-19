@@ -2,9 +2,9 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { MantineProvider } from '@mantine/core'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-import axios from 'axios'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useEffect } from 'react'
+import axios from 'axios';
 
 const queryClient = new QueryClient({
   defaultOptions: {
